@@ -1,0 +1,14 @@
+target/
+dbt_packages/
+logs/
+.env
+profiles.yml
+*.json
+!package-lock.yml
+
+.DS_Store
+.vscode/
+.idea/
+*.pyc
+__pycache__/
+.venv/

@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: raw_data
+    description: "Données brutes Local Bike"
+    database: local-bike-analytics
+    schema: local_bike_DTB
+    tables:
+      - name: stores
+      - name: staffs
+      - name: products
+      - name: customers
+      - name: orders
+      - name: order_items
+      - name: stocks
+      - name: categories
+      - name: brands

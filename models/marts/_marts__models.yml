@@ -1,0 +1,79 @@
+version: 2
+
+models:
+  - name: dim_products
+    description: "Dimension produits enrichie (marque + catégorie)"
+    columns:
+      - name: product_id
+        description: "Clé primaire produit"
+        tests:
+          - unique
+          - not_null
+      - name: brand_name
+        tests:
+          - not_null
+      - name: category_name
+        tests:
+          - not_null
+
+  - name: dim_customers
+    description: "Dimension clients"
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_stores
+    description: "Dimension magasins"
+    columns:
+      - name: store_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_staffs
+    description: "Dimension employés avec info magasin"
+    columns:
+      - name: staff_id
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_sales
+    description: "Table de faits des ventes - niveau ligne de commande"
+    columns:
+      - name: sale_key
+        description: "Clé unique de vente (order_id + item_id)"
+        tests:
+          - unique
+          - not_null
+      - name: product_id
+        description: "Clé étrangère produit"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_products')
+              field: product_id
+      - name: store_id
+        description: "Clé étrangère magasin"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_stores')
+              field: store_id
+      - name: net_revenue
+        description: "Revenu net après remise"
+        tests:
+          - not_null
+
+  - name: fact_stocks
+    description: "Table de faits des stocks - niveau magasin x produit"
+    columns:
+      - name: stock_key
+        tests:
+          - unique
+          - not_null
+      - name: stock_quantity
+        tests:
+          - not_null
